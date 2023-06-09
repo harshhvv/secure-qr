@@ -1,4 +1,4 @@
-import { IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonContent, IonHeader, IonInput, IonItem, IonLabel, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { useRef, useState } from 'react';
 import { signOut, getAuth } from "firebase/auth";
 import { useHistory } from 'react-router';
@@ -7,7 +7,9 @@ import { doc, updateDoc, getDoc, setDoc } from "firebase/firestore";
 import QRCode from 'react-qr-code';
 import CryptoJS from 'crypto-js';
 const auth = getAuth();
-const secret: any = process.env.secret;
+// const secret: any = process.env.REACT_APP_SECRET;
+const secret: any = "abcdefghijklmnopqrstuvwxyz1234567890";
+
 
 
 const Home: any = () => {
@@ -32,7 +34,6 @@ const Home: any = () => {
 
   const calcBmiAndUpdateDoc = async () => {
     const user = auth.currentUser
-    // uid = user!.uid;
     const enteredHeight = height.current!.value;
     const enteredWeight = weight.current!.value;
 
@@ -49,11 +50,13 @@ const Home: any = () => {
       // console.log(bmis2)
       newJson = [...bmis2]
       // console.log("old" + newJson as string)
+      const date = new Date();
       newJson.push({
-        bmi: bmi,
+        bmi: bmi.toFixed(2),
         height: +enteredHeight,
         weight: +enteredWeight,
-        date: Date()
+        date: String(date.getDate()).padStart(2, '0') + "/" + String(date.getMonth() + 1).padStart(2, '0') + "/" + date.getFullYear()
+        // Date().toString().slice(4, 16)
       })
       console.log(JSON.stringify(newJson))
 

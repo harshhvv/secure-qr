@@ -29,4 +29,3 @@ yarn-error.log*
 .eslintcache
 .env
 
-src/firebase.tsx

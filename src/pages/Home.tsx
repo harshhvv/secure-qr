@@ -85,7 +85,8 @@ const Home: any = () => {
           <IonButtons slot="start">
             <IonBackButton></IonBackButton>
           </IonButtons>
-          <IonTitle>BMI Calc</IonTitle>
+          <IonTitle >BMI Calc</IonTitle>
+          <IonLabel></IonLabel>
         </IonToolbar>
       </IonHeader>
 

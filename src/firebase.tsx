@@ -5,13 +5,13 @@ import { getFirestore } from "firebase/firestore";
 import { createContext, useContext, useEffect, useState } from "react";
 
 const firebaseConfig = {
-    apiKey: "",
-    authDomain: "",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: "",
-    appId: "",
-    measurementId: ""
+    apiKey: "AIzaSyBlZYdjqdvbSeYQ9HtZd13kJJBXRzbkerg",
+    authDomain: "bmi-proj.firebaseapp.com",
+    projectId: "bmi-proj",
+    storageBucket: "bmi-proj.appspot.com",
+    messagingSenderId: "219199813042",
+    appId: "1:219199813042:web:c1d0d91c288a88d8f6a0ab",
+    measurementId: "G-D1VGL3WB32"
 };
 
 const app = initializeApp(firebaseConfig);

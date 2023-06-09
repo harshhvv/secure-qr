@@ -24,13 +24,13 @@ const Home: any = () => {
     });
   }
 
-  const height = useRef<HTMLIonInputElement>(null)
-  const weight = useRef<HTMLIonInputElement>(null)
-  const [bmi, setbmi] = useState<number>()
-  const [qrdata, setqr] = useState<string>()
+  const height = useRef<HTMLIonInputElement>(null) //keep track of height
+  const weight = useRef<HTMLIonInputElement>(null) //keep track of weight
+  const [bmi, setbmi] = useState<number>() //keep track of bmi
+  const [qrdata, setqr] = useState<string>() //keep track of qr data
 
-  let bmis2: any[] = []
-  let newJson: any[] = []
+  let bmis2: any[] = []   //will hold bmi data from firestore
+  let newJson: any[] = [] //will hold new bmi data to be pushed to firestore
 
   const calcBmiAndUpdateDoc = async () => {
     const user = auth.currentUser
@@ -41,36 +41,32 @@ const Home: any = () => {
       return;
     }
     const bmi = +enteredWeight / (+enteredHeight * +enteredHeight);
-    setbmi(bmi)
+    setbmi(bmi) //set bmi state
 
-    const docSnap = await getDoc(doc(db, "data", user!.uid));
+    const docSnap = await getDoc(doc(db, "data", user!.uid)); //get bmi data from firestore
     if (docSnap.exists()) {
-      // console.log("Document data:", docSnap.data());
-      bmis2 = docSnap.data()!.bmis
-      // console.log(bmis2)
-      newJson = [...bmis2]
-      // console.log("old" + newJson as string)
+      bmis2 = docSnap.data()!.bmis //store bmi data in bmis2
+      newJson = [...bmis2] //copy bmis2 to newJson
       const date = new Date();
       newJson.push({
         bmi: bmi.toFixed(2),
         height: +enteredHeight,
         weight: +enteredWeight,
         date: String(date.getDate()).padStart(2, '0') + "/" + String(date.getMonth() + 1).padStart(2, '0') + "/" + date.getFullYear()
-        // Date().toString().slice(4, 16)
       })
       console.log(JSON.stringify(newJson))
 
       await updateDoc(doc(db, "data", user!.uid), {
         bmis: newJson
-      });
+      }); //update bmi data in firestore
     }
-    const qrdata = CryptoJS.AES.encrypt(user!.uid, secret).toString();
+    const qrdata = CryptoJS.AES.encrypt(user!.uid, secret).toString(); //encrypt uid
     console.log("encrypted uid is: " + qrdata)
     setqr(qrdata)
   }
 
   const scanQr = () => {
-    history.push("/scanner")
+    history.push("/scanner") //redirect to scanner page
   }
 
   const reset = () => {
@@ -128,17 +124,10 @@ const Home: any = () => {
             <QRCode value={qrdata} />
           </IonCardContent>
         </IonCard>}
+
       </IonContent>
-
-      {/* <IonFab slot='fixed' vertical='bottom' horizontal='center'>
-        <IonFabButton onClick={startScan}>
-          <IonIcon icon={camera}></IonIcon>
-        </IonFabButton>
-      </IonFab> */}
-
     </IonPage >
   );
 
 };
-
 export default Home;

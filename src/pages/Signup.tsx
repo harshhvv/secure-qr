@@ -21,7 +21,7 @@ const Signup: React.FC = () => {
                 const user = userCredential.user;
                 console.log(user);
                 const uid = user.uid;
-                setDoc(doc(db, "data", uid), {
+                setDoc(doc(db, "data", uid), { //create a new document in firestore
                     bmis: [{
                         bmi: 0,
                         height: +0,

@@ -13,4 +13,4 @@
 
 4. insert the values provided by firebase during app creation
 5. rename firebase_skeleton.tsx to firebase.tsx
-6. ionic serve
+6. run command "ionic serve"

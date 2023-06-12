@@ -24,6 +24,9 @@ const Home: any = () => {
     });
   }
 
+  const loggedInUser = auth.currentUser;
+  const firstName = loggedInUser?.displayName?.split(" ")[0];
+  console.log(firstName)
   const height = useRef<HTMLIonInputElement>(null) //keep track of height
   const weight = useRef<HTMLIonInputElement>(null) //keep track of weight
   const [bmi, setbmi] = useState<number>() //keep track of bmi
@@ -78,11 +81,11 @@ const Home: any = () => {
     <IonPage className='ok'>
       <IonHeader>
         <IonToolbar>
-          <IonButtons slot="start">
+          {/* <IonButtons slot="start">
             <IonBackButton></IonBackButton>
           </IonButtons>
-          <IonTitle >BMI Calc</IonTitle>
-          <IonLabel></IonLabel>
+          <IonTitle >BMI Calc</IonTitle> */}
+          {/* <IonLabel >hello</IonLabel> */}
         </IonToolbar>
       </IonHeader>
 

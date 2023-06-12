@@ -1,16 +1,39 @@
-import { IonItem, IonLabel, IonInput, IonPage, IonContent, IonButton, IonHeader, IonTitle, IonToolbar } from "@ionic/react"
+import { IonItem, IonLabel, IonInput, IonPage, IonContent, IonButton, IonHeader, IonTitle, IonToolbar, IonCard, IonCardContent } from "@ionic/react"
 import { useHistory } from "react-router";
 import React, { useRef } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
 
 const Login: React.FC = () => {
+
+
+    const IonCardStyle = {
+        width: "50%",
+        margin: "auto",
+        position: "relative",
+        top: "50px"
+    }
+
+    const IonButtonsContainer = {
+        // border: "2px solid green",
+        marginTop: "14px",
+        display: "inline-block",
+        position: "relative",
+        left: "30%"
+    }
+
+    const IonButtonStyle = {
+        // margin: "auto",
+        // margin: "0px 2px 0px 2px"
+        borderRadius: "10px"
+    }
+
     const history = useHistory();
     const email = useRef<HTMLIonInputElement>(null)
     const password = useRef<HTMLIonInputElement>(null)
 
-    const onLogin = (e: any) => {
-        e.preventDefault();
+    const onLogin = () => {
+        // e.preventDefault();
         const enteredEmail = email.current!.value as string;
         const enteredPassword = password.current!.value as string;
         if (!enteredEmail || !enteredPassword) { return; }
@@ -39,17 +62,24 @@ const Login: React.FC = () => {
                 </IonToolbar>
             </IonHeader>
             <IonContent>
-                <IonItem className="inputs">
-                    <IonLabel position='floating'>Username</IonLabel>
-                    <IonInput ref={email}></IonInput>
-                </IonItem>
 
-                <IonItem className="inputs">
-                    <IonLabel position='floating'>Password</IonLabel>
-                    <IonInput type="password" ref={password}></IonInput>
-                </IonItem>
-                <IonButton id="present-alert" onClick={onLogin}>Login</IonButton>
-                <IonButton onClick={handleButtonClick}>Sign Up now</IonButton>
+                <IonCard style={IonCardStyle}>
+                    <IonCardContent >
+                        <IonItem className="inputs">
+                            <IonLabel position='floating'>Email</IonLabel>
+                            <IonInput ref={email}></IonInput>
+                        </IonItem>
+
+                        <IonItem className="inputs">
+                            <IonLabel position='floating'>Password</IonLabel>
+                            <IonInput type="password" ref={password}></IonInput>
+                        </IonItem>
+                        <div style={IonButtonsContainer}>
+                            <IonButton style={IonButtonStyle} onClick={onLogin}>Login</IonButton>
+                            <IonButton style={IonButtonStyle} onClick={handleButtonClick}>Sign Up now</IonButton>
+                        </div>
+                    </IonCardContent>
+                </IonCard>
             </IonContent>
         </IonPage>
     )

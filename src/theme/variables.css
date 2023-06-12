@@ -1,5 +1,9 @@
 /* Ionic Variables and Theming. For more info, please see:
 http://ionicframework.com/docs/theming/ */
+/* * {
+  background: transparent;
+  --background: transparent;
+} */
 
 /** Ionic CSS Variables **/
 :root {
@@ -232,6 +236,7 @@ http://ionicframework.com/docs/theming/ */
     --ion-tab-bar-background: #1f1f1f;
 
     --ion-card-background: #1e1e1e;
+
   }
 }
 

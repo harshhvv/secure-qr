@@ -10,7 +10,7 @@ import { getAuth } from "firebase/auth";
 import '../theme/variables.css';
 
 
-const secret: any = "abcdefghijklmnopqrstuvwxyz1234567890";
+const secret: any = import.meta.env.VITE_ENC_DEC_KEY;
 const user = getAuth().currentUser;
 const curr_uid = user?.uid.toString();
 

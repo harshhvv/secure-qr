@@ -8,7 +8,7 @@ import QRCode from 'react-qr-code';
 import CryptoJS from 'crypto-js';
 const auth = getAuth();
 // const secret: any = process.env.REACT_APP_SECRET;
-const secret: any = "abcdefghijklmnopqrstuvwxyz1234567890";
+const secret: any = import.meta.env.VITE_ENC_DEC_KEY;
 
 
 

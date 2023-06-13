@@ -26,7 +26,9 @@ const Home: any = () => {
 
   const loggedInUser = auth.currentUser;
   const firstName = loggedInUser?.displayName?.split(" ")[0];
-  console.log(firstName)
+  console.log(loggedInUser)
+
+
   const height = useRef<HTMLIonInputElement>(null) //keep track of height
   const weight = useRef<HTMLIonInputElement>(null) //keep track of weight
   const [bmi, setbmi] = useState<number>() //keep track of bmi

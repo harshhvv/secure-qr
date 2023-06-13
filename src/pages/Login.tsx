@@ -8,24 +8,21 @@ const Login: React.FC = () => {
 
 
     const IonCardStyle = {
-        width: "50%",
-        margin: "auto",
-        position: "relative",
+        width: "80%",
+        // margin: "auto",
+        margin: "0px auto 0px auto",
         top: "50px"
     }
 
     const IonButtonsContainer = {
-        // border: "2px solid green",
         marginTop: "14px",
-        display: "inline-block",
-        position: "relative",
-        left: "30%"
     }
 
     const IonButtonStyle = {
-        // margin: "auto",
-        // margin: "0px 2px 0px 2px"
-        borderRadius: "10px"
+        borderRadius: "10px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
     }
 
     const history = useHistory();
@@ -74,9 +71,9 @@ const Login: React.FC = () => {
                             <IonLabel position='floating'>Password</IonLabel>
                             <IonInput type="password" ref={password}></IonInput>
                         </IonItem>
-                        <div style={IonButtonsContainer}>
-                            <IonButton style={IonButtonStyle} onClick={onLogin}>Login</IonButton>
-                            <IonButton style={IonButtonStyle} onClick={handleButtonClick}>Sign Up now</IonButton>
+                        <div style={{ ...IonButtonsContainer, position: "relative" }}>
+                            <IonButton style={{ ...IonButtonStyle, backgroundcolor: "red" }} onClick={onLogin}>Login</IonButton>
+                            <IonButton style={{ ...IonButtonStyle }} onClick={handleButtonClick}>Sign Up</IonButton>
                         </div>
                     </IonCardContent>
                 </IonCard>

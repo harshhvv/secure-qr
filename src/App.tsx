@@ -28,6 +28,7 @@ import Signup from './pages/Signup';
 import Scanner from './pages/tab1/Scanner';
 import { AuthContextProvider, useAuthState } from './firebase';
 import React from 'react';
+import Tab1 from './pages/tab1/Tab1';
 
 
 
@@ -54,12 +55,12 @@ const App: React.FC = () => {
         <IonReactRouter>
           <IonRouterOutlet>
             <Switch>
-              <Route exact path="/home" component={Home} />
+              <Route exact path="/tab1" component={Tab1} />
               {/* <AuthenticatedRoute exact path="/home" component={Home} /> */}
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={Signup} />
               <Route exact path="/home" component={Login} />
-              <Route exact path='/scanner' component={Scanner} />
+              <Route exact path='/tab1/scanner' component={Scanner} />
               <Route exact path="*" render={() => <Redirect to="/login" />} />
             </Switch>
           </IonRouterOutlet>

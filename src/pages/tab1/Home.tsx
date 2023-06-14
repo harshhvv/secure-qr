@@ -8,8 +8,6 @@ import QRCode from 'react-qr-code';
 import CryptoJS from 'crypto-js';
 import './Home.css'
 import { closeCircle, person } from 'ionicons/icons';
-
-
 // const secret: any = import.meta.env.VITE_ENC_DEC_KEY;
 const secret: any = "abcdefghijklmnopqrstuvwxyz1234567890"
 
@@ -19,6 +17,25 @@ const secret: any = "abcdefghijklmnopqrstuvwxyz1234567890"
 const Home: any = () => {
 
   const history = useHistory();
+  const auth = getAuth();
+  const loggedInUser = auth.currentUser;
+  const [firstName, setFirstName] = useState<string>("");
+  const height = useRef<HTMLIonInputElement>(null) //keep track of height
+  const weight = useRef<HTMLIonInputElement>(null) //keep track of weight
+  const [bmi, setbmi] = useState<number>() //keep track of bmi
+  const [qrdata, setqr] = useState<string>() //keep track of qr data
+  let bmis2: any[] = []   //will hold bmi data from firestore
+  let newJson: any[] = [] //will hold new bmi data to be pushed to firestore
+
+  const showDisplayName = () => {
+    useEffect(() => {
+      setFirstName(loggedInUser?.displayName?.split(" ")[0] as string);
+      const qrdata = CryptoJS.AES.encrypt(loggedInUser!.uid, secret).toString(); //encrypt uid
+      // console.log("encrypted uid is: " + qrdata)
+      setqr(qrdata)
+    }, []);
+  }
+
   const handleLogout = () => {
     signOut(auth).then(() => {
       history.goBack();
@@ -29,29 +46,14 @@ const Home: any = () => {
     });
   }
 
-  const auth = getAuth();
-  const loggedInUser = auth.currentUser;
-
-  const [firstName, setFirstName] = useState<string>("");
-
-
-  const height = useRef<HTMLIonInputElement>(null) //keep track of height
-  const weight = useRef<HTMLIonInputElement>(null) //keep track of weight
-  const [bmi, setbmi] = useState<number>() //keep track of bmi
-  const [qrdata, setqr] = useState<string>() //keep track of qr data
-
-  let bmis2: any[] = []   //will hold bmi data from firestore
-  let newJson: any[] = [] //will hold new bmi data to be pushed to firestore
-
-  const showDisplayNameAndQR = () => {
+  const showQR = () => {
     useEffect(() => {
-      setFirstName(loggedInUser?.displayName?.split(" ")[0] as string);
       const qrdata = CryptoJS.AES.encrypt(loggedInUser!.uid, secret).toString(); //encrypt uid
-      // console.log("encrypted uid is: " + qrdata)
       setqr(qrdata)
     }, []);
   }
-  showDisplayNameAndQR()
+  showDisplayName();
+  showQR();
 
   const calcBmiAndUpdateDoc = async () => {
     const user = auth.currentUser
@@ -84,7 +86,7 @@ const Home: any = () => {
   }
 
   const scanQr = () => {
-    history.push("/scanner") //redirect to scanner page
+    // history.push("/tab1/scanner") //redirect to scanner page
   }
 
   const reset = () => {
@@ -94,13 +96,7 @@ const Home: any = () => {
 
   return (
     <IonPage>
-
-      {/* <IonHeader> */}
       <IonToolbar>
-        {/* <IonButtons slot="start">
-            <IonBackButton>back</IonBackButton>
-          </IonButtons>
-          <IonTitle>BMI </IonTitle> */}
 
         {loggedInUser && <IonChip slot='end' id='bottom-start'>
           <IonPopover trigger="bottom-start" side="bottom" alignment="center" mode='ios'>
@@ -116,7 +112,6 @@ const Home: any = () => {
         </IonChip>}
 
       </IonToolbar>
-      {/* </IonHeader> */}
 
       <IonContent>
         <IonCard mode='ios'>
@@ -130,11 +125,6 @@ const Home: any = () => {
               <IonLabel position='floating'>Your height in meters</IonLabel>
               <IonInput ref={height}></IonInput>
             </IonItem>
-            {/* </IonCardContent>
-        </IonCard>
-
-        <IonCard mode='ios'>
-          <IonCardContent> */}
             <IonGrid>
               <IonRow>
                 <IonCol>
@@ -153,6 +143,7 @@ const Home: any = () => {
             <h2>{bmi}</h2>
           </IonCardContent>
         </IonCard>}
+
 
         {qrdata && <IonCard mode='ios' id='QRCard' >
           <IonCardContent>

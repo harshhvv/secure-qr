@@ -1,4 +1,4 @@
-import { IonItem, IonLabel, IonInput, IonPage, IonContent, IonButton, IonHeader, IonTitle, IonToolbar, IonCard, IonCardContent } from "@ionic/react"
+import { IonItem, IonLabel, IonInput, IonPage, IonContent, IonButton, IonHeader, IonTitle, IonToolbar, IonCard, IonCardContent, IonCol, IonGrid, IonRow } from "@ionic/react"
 import { useHistory } from "react-router";
 import React, { useRef } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
@@ -37,7 +37,7 @@ const Login: React.FC = () => {
         signInWithEmailAndPassword(auth, enteredEmail, enteredPassword)
             .then((userCredential) => {
                 const user = userCredential.user;
-                history.push('/home');
+                history.push('/tab1');
                 console.log(user);
             })
             .catch((error) => {
@@ -53,13 +53,7 @@ const Login: React.FC = () => {
     };
     return (
         <IonPage>
-            {/* <IonHeader>
-                <IonToolbar>
-                    <IonTitle>Login Page</IonTitle>
-                </IonToolbar>
-            </IonHeader> */}
             <IonContent>
-
                 <IonCard style={IonCardStyle} mode='ios'>
                     <IonCardContent >
                         <IonItem className="inputs">
@@ -71,10 +65,17 @@ const Login: React.FC = () => {
                             <IonLabel position='floating'>Password</IonLabel>
                             <IonInput type="password" ref={password}></IonInput>
                         </IonItem>
-                        <div style={{ ...IonButtonsContainer, position: "relative" }}>
-                            <IonButton style={{ ...IonButtonStyle, backgroundcolor: "red" }} mode='ios' onClick={onLogin}>Login</IonButton>
-                            <IonButton style={{ ...IonButtonStyle }} mode='ios' onClick={handleButtonClick}>Sign Up</IonButton>
-                        </div>
+
+                        <IonGrid>
+                            <IonRow>
+                                <IonCol>
+                                    <IonButton style={{ ...IonButtonStyle, backgroundcolor: "red" }} mode='ios' onClick={onLogin}>Login</IonButton>
+                                </IonCol>
+                                <IonCol>
+                                    <IonButton style={{ ...IonButtonStyle }} mode='ios' onClick={handleButtonClick}>Sign Up</IonButton>
+                                </IonCol>
+                            </IonRow>
+                        </IonGrid>
                     </IonCardContent>
                 </IonCard>
             </IonContent>

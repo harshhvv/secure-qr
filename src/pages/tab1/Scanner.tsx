@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonApp, IonFab, IonFabButton, IonIcon, IonCol, IonGrid, IonRow, IonBackButton, IonButtons, IonCard, IonCardContent } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonApp, IonFab, IonFabButton, IonIcon, IonCol, IonGrid, IonRow, IonBackButton, IonButtons, IonCard, IonCardContent, IonFooter } from '@ionic/react';
 import './Home.css';
 import { BarcodeScanner, SupportedFormat } from '@capacitor-community/barcode-scanner';
 import { camera } from 'ionicons/icons';
@@ -12,10 +12,7 @@ import '../../theme/variables.css';
 
 // const secret: any = import.meta.env.VITE_ENC_DEC_KEY;
 const secret: any = "abcdefghijklmnopqrstuvwxyz1234567890"
-
-
 const user = getAuth().currentUser;
-const curr_uid = user?.uid.toString();
 
 type userDataType = {
     bmis: {
@@ -78,57 +75,52 @@ const Scanner: React.FC = () => {
     };
 
     return (
-        <IonApp>
-            <IonPage>
-                <IonHeader>
-                    <IonToolbar>
-                        <IonButtons slot="start">
-                            <IonBackButton>Back</IonBackButton>
-                        </IonButtons>
-                        <IonTitle>History</IonTitle>
-                    </IonToolbar>
-                </IonHeader>
+        // <IonApp>
+        <IonContent>
+            ok
+        </IonContent>
+        // </IonApp>
+        // <IonApp>
+        //     <IonPage>
+        //         <IonContent style={IonContentStyle}>
+        //             <IonCard mode='ios'>
+        //                 <IonCardContent>
+        //                     <IonGrid>
+        //                         {user_data && <IonRow>
+        //                             <IonCol class="ion-text-center"><b>Date</b></IonCol>
+        //                             <IonCol class="ion-text-center"><b>Height</b></IonCol>
+        //                             <IonCol class="ion-text-center"><b>Weight</b></IonCol>
+        //                             <IonCol class="ion-text-center"><b>BMI</b></IonCol>
+        //                         </IonRow>}
 
-                <IonContent style={IonContentStyle}>
-                    <IonCard mode='ios'>
-                        <IonCardContent>
-                            <IonGrid>
-                                {user_data && <IonRow>
-                                    <IonCol class="ion-text-center"><b>Date</b></IonCol>
-                                    <IonCol class="ion-text-center"><b>Height</b></IonCol>
-                                    <IonCol class="ion-text-center"><b>Weight</b></IonCol>
-                                    <IonCol class="ion-text-center"><b>BMI</b></IonCol>
-                                </IonRow>}
-
-                                {user_data &&
-                                    user_data.map((data, idx) => {
-                                        return (
-                                            <IonRow >
-                                                {idx > 0 && <IonCol class="ion-text-center">{data['date']}</IonCol>}
-                                                {idx > 0 && <IonCol class="ion-text-center">{data['height']}</IonCol>}
-                                                {idx > 0 && <IonCol class="ion-text-center">{data['weight']}</IonCol>}
-                                                {idx > 0 && <IonCol class="ion-text-center">{data['bmi']}</IonCol>}
-                                            </IonRow>
-                                        )
-                                    })
-                                }
-                            </IonGrid>
-                        </IonCardContent>
-                    </IonCard>
-                </IonContent>
-
-                {/* <IonFooter> */}
-                <IonFab slot='fixed' vertical='bottom' horizontal='center'>
-                    <IonFabButton onClick={askUser}>
-                        <IonIcon icon={camera}></IonIcon>
-                    </IonFabButton>
-                </IonFab>
-                {/* </IonFooter> */}
+        //                         {user_data &&
+        //                             user_data.map((data, idx) => {
+        //                                 return (
+        //                                     <IonRow >
+        //                                         {idx > 0 && <IonCol class="ion-text-center">{data['date']}</IonCol>}
+        //                                         {idx > 0 && <IonCol class="ion-text-center">{data['height']}</IonCol>}
+        //                                         {idx > 0 && <IonCol class="ion-text-center">{data['weight']}</IonCol>}
+        //                                         {idx > 0 && <IonCol class="ion-text-center">{data['bmi']}</IonCol>}
+        //                                     </IonRow>
+        //                                 )
+        //                             })
+        //                         }
+        //                     </IonGrid>
+        //                 </IonCardContent>
+        //             </IonCard>
 
 
 
-            </IonPage>
-        </IonApp >
+        //             <IonFab slot='fixed' vertical='bottom' horizontal='center'>
+        //                 <IonFabButton onClick={askUser}>
+        //                     <IonIcon icon={camera}></IonIcon>
+        //                 </IonFabButton>
+        //             </IonFab>
+        //         </IonContent>
+        //     </IonPage>
+        // </IonApp>
+
+
 
     )
 };

@@ -1,0 +1,21 @@
+.btn {
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+ion-chip {
+    margin-right: 16px;
+    font-size: 14px;
+}
+
+ion-button {
+    border-radius: 10px;
+}
+
+#user-firstname-label {
+    margin-left: 8px;
+}

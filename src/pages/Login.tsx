@@ -60,7 +60,7 @@ const Login: React.FC = () => {
             </IonHeader>
             <IonContent>
 
-                <IonCard style={IonCardStyle}>
+                <IonCard style={IonCardStyle} mode='ios'>
                     <IonCardContent >
                         <IonItem className="inputs">
                             <IonLabel position='floating'>Email</IonLabel>
@@ -72,8 +72,8 @@ const Login: React.FC = () => {
                             <IonInput type="password" ref={password}></IonInput>
                         </IonItem>
                         <div style={{ ...IonButtonsContainer, position: "relative" }}>
-                            <IonButton style={{ ...IonButtonStyle, backgroundcolor: "red" }} onClick={onLogin}>Login</IonButton>
-                            <IonButton style={{ ...IonButtonStyle }} onClick={handleButtonClick}>Sign Up</IonButton>
+                            <IonButton style={{ ...IonButtonStyle, backgroundcolor: "red" }} mode='ios' onClick={onLogin}>Login</IonButton>
+                            <IonButton style={{ ...IonButtonStyle }} mode='ios' onClick={handleButtonClick}>Sign Up</IonButton>
                         </div>
                     </IonCardContent>
                 </IonCard>

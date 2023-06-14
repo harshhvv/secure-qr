@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { IonContent, IonLabel, IonHeader, IonPage, IonTitle, IonToolbar, IonApp, IonFab, IonFabButton, IonIcon, IonCol, IonGrid, IonRow, IonBackButton, IonButtons, IonCard, IonCardContent, IonFooter } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonApp, IonFab, IonFabButton, IonIcon, IonCol, IonGrid, IonRow, IonBackButton, IonButtons, IonCard, IonCardContent } from '@ionic/react';
 import './Home.css';
 import { BarcodeScanner, SupportedFormat } from '@capacitor-community/barcode-scanner';
-import { camera, card } from 'ionicons/icons';
+import { camera } from 'ionicons/icons';
 import CryptoJS from 'crypto-js';
 import { getDoc, doc } from 'firebase/firestore';
 import { db } from '../firebase';
@@ -10,7 +10,10 @@ import { getAuth } from "firebase/auth";
 import '../theme/variables.css';
 
 
-const secret: any = import.meta.env.VITE_ENC_DEC_KEY;
+// const secret: any = import.meta.env.VITE_ENC_DEC_KEY;
+const secret: any = "abcdefghijklmnopqrstuvwxyz1234567890"
+
+
 const user = getAuth().currentUser;
 const curr_uid = user?.uid.toString();
 
@@ -50,11 +53,12 @@ const Scanner: React.FC = () => {
             const decrypted_uid = CryptoJS.AES.decrypt(result.content, secret).toString(CryptoJS.enc.Utf8); //decrypt the scanned content
             console.log("decrypted uid is: " + decrypted_uid)
 
-            if (decrypted_uid === curr_uid) {
-                const docSnap = await getDoc(doc(db, "data", decrypted_uid));
-                const ans = docSnap.data()!.bmis
-                setUserData(ans)
-            }
+            // if (decrypted_uid === curr_uid) {
+            const docSnap = await getDoc(doc(db, "data", decrypted_uid));
+
+            const ans = docSnap.data()!.bmis
+            setUserData(ans)
+            // }
         }
     };
 
@@ -86,7 +90,7 @@ const Scanner: React.FC = () => {
                 </IonHeader>
 
                 <IonContent style={IonContentStyle}>
-                    <IonCard>
+                    <IonCard mode='ios'>
                         <IonCardContent>
                             <IonGrid>
                                 {user_data && <IonRow>

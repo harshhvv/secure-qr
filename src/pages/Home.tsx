@@ -1,14 +1,18 @@
-import { IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonContent, IonHeader, IonInput, IonItem, IonLabel, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import { useRef, useState } from 'react';
+import { IonActionSheet, IonAvatar, IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonChip, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { useEffect, useRef, useState } from 'react';
 import { signOut, getAuth } from "firebase/auth";
 import { useHistory } from 'react-router';
 import { db } from '../firebase';
 import { doc, updateDoc, getDoc, setDoc } from "firebase/firestore";
 import QRCode from 'react-qr-code';
 import CryptoJS from 'crypto-js';
-const auth = getAuth();
-// const secret: any = process.env.REACT_APP_SECRET;
-const secret: any = import.meta.env.VITE_ENC_DEC_KEY;
+import './Home.css'
+import { closeCircle, person } from 'ionicons/icons';
+
+
+// const secret: any = import.meta.env.VITE_ENC_DEC_KEY;
+const secret: any = "abcdefghijklmnopqrstuvwxyz1234567890"
+
 
 
 
@@ -24,9 +28,10 @@ const Home: any = () => {
     });
   }
 
+  const auth = getAuth();
   const loggedInUser = auth.currentUser;
-  const firstName = loggedInUser?.displayName?.split(" ")[0];
-  console.log(loggedInUser)
+
+  const [firstName, setFirstName] = useState<string>("");
 
 
   const height = useRef<HTMLIonInputElement>(null) //keep track of height
@@ -37,6 +42,13 @@ const Home: any = () => {
   let bmis2: any[] = []   //will hold bmi data from firestore
   let newJson: any[] = [] //will hold new bmi data to be pushed to firestore
 
+  const showDisplayName = () => {
+    useEffect(() => {
+      setFirstName(loggedInUser?.displayName?.split(" ")[0] as string);
+    }, []);
+  }
+  showDisplayName()
+  // showDisplayName()
   const calcBmiAndUpdateDoc = async () => {
     const user = auth.currentUser
     const enteredHeight = height.current!.value;
@@ -59,14 +71,14 @@ const Home: any = () => {
         weight: +enteredWeight,
         date: String(date.getDate()).padStart(2, '0') + "/" + String(date.getMonth() + 1).padStart(2, '0') + "/" + date.getFullYear()
       })
-      console.log(JSON.stringify(newJson))
+      // console.log(JSON.stringify(newJson))
 
       await updateDoc(doc(db, "data", user!.uid), {
         bmis: newJson
       }); //update bmi data in firestore
     }
     const qrdata = CryptoJS.AES.encrypt(user!.uid, secret).toString(); //encrypt uid
-    console.log("encrypted uid is: " + qrdata)
+    // console.log("encrypted uid is: " + qrdata)
     setqr(qrdata)
   }
 
@@ -81,19 +93,54 @@ const Home: any = () => {
 
   return (
     <IonPage className='ok'>
+
       <IonHeader>
         <IonToolbar>
           {/* <IonButtons slot="start">
-            <IonBackButton></IonBackButton>
-          </IonButtons>
-          <IonTitle >BMI Calc</IonTitle> */}
-          {/* <IonLabel >hello</IonLabel> */}
+            <IonBackButton>back</IonBackButton>
+          </IonButtons> */}
+          <IonTitle>BMI </IonTitle>
+
+          <IonChip slot='end' id='open-action-sheet'>
+            <IonActionSheet
+              trigger="open-action-sheet"
+              // header="Actions"
+              mode='ios'
+              buttons={[
+                {
+                  text: 'Logout',
+                  role: 'destructive',
+                  handler: () => {
+                    handleLogout();
+                  }
+                },
+                {
+                  text: 'Scan QR',
+                  handler: () => {
+                    scanQr();
+                  }
+                },
+                {
+                  text: 'Cancel',
+                  role: 'cancel',
+                  data: {
+                    action: 'cancel',
+                  },
+                },
+              ]}
+            ></IonActionSheet>
+            <IonAvatar >
+              <img id='user-avatar' src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+            </IonAvatar>
+            <IonLabel id='user-firstname-label'>{firstName}</IonLabel>
+          </IonChip>
+
         </IonToolbar>
       </IonHeader>
 
       <IonContent>
 
-        <IonCard>
+        <IonCard mode='ios'>
           <IonCardContent>
             <IonItem className="inputs">
               <IonLabel position='floating'>Your weight in kg</IonLabel>
@@ -107,24 +154,22 @@ const Home: any = () => {
             </IonItem>
           </IonCardContent>
         </IonCard>
-        <IonCard>
+        <IonCard mode='ios'>
           <IonCardContent>
-            <IonButton className='btn' onClick={calcBmiAndUpdateDoc}>Calculate BMI</IonButton>
-            <IonButton className='btn' onClick={reset}>Reset</IonButton> <br />
-            <br />
-            <IonButton onClick={handleLogout}>Logout</IonButton>
-            <br />
-            <IonButton onClick={scanQr}>Scan</IonButton>
+            <IonButton mode='ios' className='btn' onClick={calcBmiAndUpdateDoc}>Calculate BMI</IonButton>
+            <IonButton mode='ios' className='btn' onClick={reset}>Reset</IonButton>
+            {/* <IonButton mode='ios' className='btn' onClick={scanQr}>Scan</IonButton> */}
+            {/* <IonButton mode='ios' className='btn' onClick={handleLogout}>Logout</IonButton> */}
           </IonCardContent>
-        </IonCard>
+        </IonCard >
 
-        {bmi && <IonCard>
+        {bmi && <IonCard mode='ios'>
           <IonCardContent>
             <h2>{bmi}</h2>
           </IonCardContent>
         </IonCard>}
 
-        {qrdata && <IonCard>
+        {qrdata && <IonCard mode='ios'>
           <IonCardContent>
             <QRCode value={qrdata} />
           </IonCardContent>

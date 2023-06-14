@@ -1,9 +1,10 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { useHistory } from 'react-router';
-import { IonItem, IonLabel, IonInput, IonPage, IonContent, IonButton, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton } from "@ionic/react"
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { IonItem, IonLabel, IonInput, IonPage, IonContent, IonButton, IonHeader, IonTitle, IonToolbar, IonCard, IonCardContent } from "@ionic/react"
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth, db } from '../firebase';
 import { setDoc, doc } from 'firebase/firestore';
+import './signup.css'
 
 const Signup: React.FC = () => {
     const history = useHistory();
@@ -13,6 +14,12 @@ const Signup: React.FC = () => {
     const email = useRef<HTMLIonInputElement>(null)
     const password = useRef<HTMLIonInputElement>(null)
 
+    const IonCardStyle = {
+        width: "80%",
+        // margin: "auto",
+        margin: "0px auto 0px auto",
+        top: "50px"
+    }
 
     const onSubmit = async (e: any) => {
         e.preventDefault()
@@ -35,6 +42,7 @@ const Signup: React.FC = () => {
                     email: enteredEmail,
                     uid: uid
                 })
+                updateProfile(user, { displayName: enteredFirstName + " " + enteredLastName })
                 setDoc(doc(db, "data", uid), { //create a new document in firestore
                     bmis: [{
                         bmi: 0,
@@ -62,30 +70,36 @@ const Signup: React.FC = () => {
                 </IonToolbar>
             </IonHeader>
             <IonContent>
-                <IonItem className="inputs">
-                    <IonLabel position='floating'>First Name</IonLabel>
-                    <IonInput ref={firstName} required></IonInput>
-                </IonItem>
 
-                <IonItem className="inputs">
-                    <IonLabel position='floating'>Last Name</IonLabel>
-                    <IonInput ref={lastName}></IonInput>
-                </IonItem>
-                <IonItem className="inputs">
-                    <IonLabel position='floating'>Phone Number</IonLabel>
-                    <IonInput ref={phoneNumber} type='number'></IonInput>
-                </IonItem>
-                <IonItem className="inputs">
-                    <IonLabel position='floating'>Email</IonLabel>
-                    <IonInput ref={email}></IonInput>
-                </IonItem>
+                <IonCard style={IonCardStyle} mode='ios'>
+                    <IonCardContent >
+                        <IonItem className="inputs">
+                            <IonLabel position='floating'>First Name</IonLabel>
+                            <IonInput ref={firstName} required></IonInput>
+                        </IonItem>
 
-                <IonItem className="inputs">
-                    <IonLabel position='floating'>Password</IonLabel>
-                    <IonInput type="password" ref={password}></IonInput>
-                </IonItem>
-                <IonButton onClick={onSubmit}>Sign up</IonButton>
-                <IonButton onClick={history.goBack}>Have an account? Login</IonButton>
+                        <IonItem className="inputs">
+                            <IonLabel position='floating'>Last Name</IonLabel>
+                            <IonInput ref={lastName}></IonInput>
+                        </IonItem>
+                        <IonItem className="inputs">
+                            <IonLabel position='floating'>Phone Number</IonLabel>
+                            <IonInput ref={phoneNumber} type='number'></IonInput>
+                        </IonItem>
+                        <IonItem className="inputs">
+                            <IonLabel position='floating'>Email</IonLabel>
+                            <IonInput ref={email}></IonInput>
+                        </IonItem>
+
+                        <IonItem className="inputs">
+                            <IonLabel position='floating'>Password</IonLabel>
+                            <IonInput type="password" ref={password}></IonInput>
+                        </IonItem>
+                        <IonButton mode='ios' className='btn' onClick={onSubmit}>Sign up</IonButton>
+                        <IonButton mode='ios' className='btn' onClick={history.goBack}>Have an account? Login</IonButton>
+                    </IonCardContent>
+                </IonCard>
+
             </IonContent>
         </IonPage>
     )

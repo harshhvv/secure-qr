@@ -22,10 +22,10 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
-import Home from './pages/Home';
+import Home from './pages/tab1/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Scanner from './pages/Scanner';
+import Scanner from './pages/tab1/Scanner';
 import { AuthContextProvider, useAuthState } from './firebase';
 import React from 'react';
 

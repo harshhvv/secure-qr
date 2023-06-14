@@ -2,7 +2,7 @@ import { IonActionSheet, IonAvatar, IonBackButton, IonButton, IonButtons, IonCar
 import { useEffect, useRef, useState } from 'react';
 import { signOut, getAuth } from "firebase/auth";
 import { useHistory } from 'react-router';
-import { db } from '../firebase';
+import { db } from '../../firebase';
 import { doc, updateDoc, getDoc, setDoc } from "firebase/firestore";
 import QRCode from 'react-qr-code';
 import CryptoJS from 'crypto-js';
@@ -98,13 +98,12 @@ const Home: any = () => {
         <IonToolbar>
           {/* <IonButtons slot="start">
             <IonBackButton>back</IonBackButton>
-          </IonButtons> */}
-          <IonTitle>BMI </IonTitle>
+          </IonButtons>
+          <IonTitle>BMI </IonTitle> */}
 
           <IonChip slot='end' id='open-action-sheet'>
             <IonActionSheet
               trigger="open-action-sheet"
-              // header="Actions"
               mode='ios'
               buttons={[
                 {
@@ -139,7 +138,6 @@ const Home: any = () => {
       </IonHeader>
 
       <IonContent>
-
         <IonCard mode='ios'>
           <IonCardContent>
             <IonItem className="inputs">
@@ -147,13 +145,13 @@ const Home: any = () => {
               <IonInput ref={weight}></IonInput>
             </IonItem>
 
-
             <IonItem className="inputs">
               <IonLabel position='floating'>Your height in meters</IonLabel>
               <IonInput ref={height}></IonInput>
             </IonItem>
           </IonCardContent>
         </IonCard>
+
         <IonCard mode='ios'>
           <IonCardContent>
             <IonButton mode='ios' className='btn' onClick={calcBmiAndUpdateDoc}>Calculate BMI</IonButton>

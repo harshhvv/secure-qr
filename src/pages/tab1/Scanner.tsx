@@ -5,9 +5,9 @@ import { BarcodeScanner, SupportedFormat } from '@capacitor-community/barcode-sc
 import { camera } from 'ionicons/icons';
 import CryptoJS from 'crypto-js';
 import { getDoc, doc } from 'firebase/firestore';
-import { db } from '../firebase';
+import { db } from '../../firebase';
 import { getAuth } from "firebase/auth";
-import '../theme/variables.css';
+import '../../theme/variables.css';
 
 
 // const secret: any = import.meta.env.VITE_ENC_DEC_KEY;

@@ -53,11 +53,11 @@ const Login: React.FC = () => {
     };
     return (
         <IonPage>
-            <IonHeader>
+            {/* <IonHeader>
                 <IonToolbar>
                     <IonTitle>Login Page</IonTitle>
                 </IonToolbar>
-            </IonHeader>
+            </IonHeader> */}
             <IonContent>
 
                 <IonCard style={IonCardStyle} mode='ios'>

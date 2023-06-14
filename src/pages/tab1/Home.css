@@ -1,9 +1,13 @@
 .btn {
     border-radius: 10px;
-    display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 4px;
+    border-radius: 10px;
+}
 
+#logout-btn {
+    color: red;
 }
 
 
@@ -12,10 +16,45 @@ ion-chip {
     font-size: 14px;
 }
 
-ion-button {
-    border-radius: 10px;
-}
-
 #user-firstname-label {
     margin-left: 8px;
+}
+
+.popover-label {
+    /* border-radius: 10px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-bottom: 2px solid gray;
+    /* margin: 2px 0px 2px 0px; */
+    padding: 10px 0px 10px 0px;
+
+
+}
+
+.popover-label:hover {
+    cursor: pointer;
+}
+
+.user-chip {
+    position: absolute;
+    /* right: 30%; */
+}
+
+#QRCard {
+    display: inline-flex;
+    position: relative;
+    left: 30%;
+    /* align-items: center;
+    justify-content: center;
+    margin: 0 auto 0 auto;
+    padding: 0px 0px 0px 0px; */
+
+}
+
+#QRCode {
+    height: 100px;
+    width: auto;
+
 }

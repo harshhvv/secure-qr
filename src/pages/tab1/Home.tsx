@@ -1,4 +1,4 @@
-import { IonActionSheet, IonAvatar, IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonChip, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonActionSheet, IonAvatar, IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonChip, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonPage, IonPopover, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import { useEffect, useRef, useState } from 'react';
 import { signOut, getAuth } from "firebase/auth";
 import { useHistory } from 'react-router';
@@ -24,7 +24,8 @@ const Home: any = () => {
       history.goBack();
       console.log("Signed out successfully")
     }).catch((error) => {
-      alert(error.message)
+      console.log(error)
+      alert("There was a problem logging out, please try again.")
     });
   }
 
@@ -42,13 +43,16 @@ const Home: any = () => {
   let bmis2: any[] = []   //will hold bmi data from firestore
   let newJson: any[] = [] //will hold new bmi data to be pushed to firestore
 
-  const showDisplayName = () => {
+  const showDisplayNameAndQR = () => {
     useEffect(() => {
       setFirstName(loggedInUser?.displayName?.split(" ")[0] as string);
+      const qrdata = CryptoJS.AES.encrypt(loggedInUser!.uid, secret).toString(); //encrypt uid
+      // console.log("encrypted uid is: " + qrdata)
+      setqr(qrdata)
     }, []);
   }
-  showDisplayName()
-  // showDisplayName()
+  showDisplayNameAndQR()
+
   const calcBmiAndUpdateDoc = async () => {
     const user = auth.currentUser
     const enteredHeight = height.current!.value;
@@ -77,9 +81,6 @@ const Home: any = () => {
         bmis: newJson
       }); //update bmi data in firestore
     }
-    const qrdata = CryptoJS.AES.encrypt(user!.uid, secret).toString(); //encrypt uid
-    // console.log("encrypted uid is: " + qrdata)
-    setqr(qrdata)
   }
 
   const scanQr = () => {
@@ -92,50 +93,30 @@ const Home: any = () => {
   }
 
   return (
-    <IonPage className='ok'>
+    <IonPage>
 
-      <IonHeader>
-        <IonToolbar>
-          {/* <IonButtons slot="start">
+      {/* <IonHeader> */}
+      <IonToolbar>
+        {/* <IonButtons slot="start">
             <IonBackButton>back</IonBackButton>
           </IonButtons>
           <IonTitle>BMI </IonTitle> */}
 
-          <IonChip slot='end' id='open-action-sheet'>
-            <IonActionSheet
-              trigger="open-action-sheet"
-              mode='ios'
-              buttons={[
-                {
-                  text: 'Logout',
-                  role: 'destructive',
-                  handler: () => {
-                    handleLogout();
-                  }
-                },
-                {
-                  text: 'Scan QR',
-                  handler: () => {
-                    scanQr();
-                  }
-                },
-                {
-                  text: 'Cancel',
-                  role: 'cancel',
-                  data: {
-                    action: 'cancel',
-                  },
-                },
-              ]}
-            ></IonActionSheet>
-            <IonAvatar >
-              <img id='user-avatar' src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-            </IonAvatar>
-            <IonLabel id='user-firstname-label'>{firstName}</IonLabel>
-          </IonChip>
+        {loggedInUser && <IonChip slot='end' id='bottom-start'>
+          <IonPopover trigger="bottom-start" side="bottom" alignment="center" mode='ios'>
+            <IonContent class="ion-padding">
+              <IonLabel mode='ios' className='popover-label' onClick={scanQr}>Scan QR</IonLabel>
+              <IonLabel mode='ios' className='popover-label' id="logout-btn" onClick={handleLogout}>Logout</IonLabel>
+            </IonContent>
+          </IonPopover>
+          <IonAvatar >
+            <img id='user-avatar' src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+          </IonAvatar>
+          <IonLabel id='user-firstname-label'>{firstName}</IonLabel>
+        </IonChip>}
 
-        </IonToolbar>
-      </IonHeader>
+      </IonToolbar>
+      {/* </IonHeader> */}
 
       <IonContent>
         <IonCard mode='ios'>
@@ -149,15 +130,21 @@ const Home: any = () => {
               <IonLabel position='floating'>Your height in meters</IonLabel>
               <IonInput ref={height}></IonInput>
             </IonItem>
-          </IonCardContent>
+            {/* </IonCardContent>
         </IonCard>
 
         <IonCard mode='ios'>
-          <IonCardContent>
-            <IonButton mode='ios' className='btn' onClick={calcBmiAndUpdateDoc}>Calculate BMI</IonButton>
-            <IonButton mode='ios' className='btn' onClick={reset}>Reset</IonButton>
-            {/* <IonButton mode='ios' className='btn' onClick={scanQr}>Scan</IonButton> */}
-            {/* <IonButton mode='ios' className='btn' onClick={handleLogout}>Logout</IonButton> */}
+          <IonCardContent> */}
+            <IonGrid>
+              <IonRow>
+                <IonCol>
+                  <IonButton mode='ios' className='btn' onClick={calcBmiAndUpdateDoc}>Calculate BMI</IonButton>
+                </IonCol>
+                <IonCol>
+                  <IonButton mode='ios' className='btn' onClick={reset}>Reset</IonButton>
+                </IonCol>
+              </IonRow>
+            </IonGrid>
           </IonCardContent>
         </IonCard >
 
@@ -167,9 +154,9 @@ const Home: any = () => {
           </IonCardContent>
         </IonCard>}
 
-        {qrdata && <IonCard mode='ios'>
+        {qrdata && <IonCard mode='ios' id='QRCard' >
           <IonCardContent>
-            <QRCode value={qrdata} />
+            <QRCode value={qrdata} id='QRCode' />
           </IonCardContent>
         </IonCard>}
 

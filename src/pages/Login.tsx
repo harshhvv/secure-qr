@@ -37,7 +37,7 @@ const Login: React.FC = () => {
         signInWithEmailAndPassword(auth, enteredEmail, enteredPassword)
             .then((userCredential) => {
                 const user = userCredential.user;
-                history.push('/home');
+                history.push('/homeTab');
                 console.log(user);
             })
             .catch((error) => {

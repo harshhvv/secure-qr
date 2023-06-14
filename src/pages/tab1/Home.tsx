@@ -1,13 +1,17 @@
-import { IonActionSheet, IonAvatar, IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonChip, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonActionSheet, IonAvatar, IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonChip, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonPage, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs, IonTitle, IonToolbar } from '@ionic/react';
 import { useEffect, useRef, useState } from 'react';
 import { signOut, getAuth } from "firebase/auth";
-import { useHistory } from 'react-router';
+import { Redirect, Route, Switch, useHistory } from 'react-router';
 import { db } from '../../firebase';
 import { doc, updateDoc, getDoc, setDoc } from "firebase/firestore";
 import QRCode from 'react-qr-code';
 import CryptoJS from 'crypto-js';
 import './Home.css'
-import { closeCircle, person } from 'ionicons/icons';
+import { closeCircle, ellipse, person, square, triangle } from 'ionicons/icons';
+import { IonReactRouter } from '@ionic/react-router';
+import Tab2 from '../tab2/Tab2';
+import Tab3 from '../tab3/Tab3';
+import Tab1 from './Tab1';
 
 
 // const secret: any = import.meta.env.VITE_ENC_DEC_KEY;
@@ -137,7 +141,75 @@ const Home: any = () => {
         </IonToolbar>
       </IonHeader>
 
-      <IonContent>
+      <IonReactRouter>
+        <Switch>
+          <IonTabs>
+            <IonRouterOutlet>
+              <Route exact path="/tab1">
+                <Tab1 />
+              </Route>
+              <Route exact path="/tab2">
+                <Tab2 />
+              </Route>
+              <Route path="/tab3">
+                <Tab3 />
+              </Route>
+              <Route exact path="/">
+                <Redirect to="/tab1" />
+              </Route>
+            </IonRouterOutlet>
+            <IonTabBar slot="bottom">
+              <IonTabButton tab="tab1" href="/tab1">
+                <IonIcon aria-hidden="true" icon={triangle} />
+                <IonLabel>Tab 1</IonLabel>
+              </IonTabButton>
+              <IonTabButton tab="tab2" href="/tab2">
+                <IonIcon aria-hidden="true" icon={ellipse} />
+                <IonLabel>Tab 2</IonLabel>
+              </IonTabButton>
+              <IonTabButton tab="tab3" >
+                <IonIcon aria-hidden="true" icon={square} />
+                {/* <IonChip slot='end' id='open-action-sheet'> */}
+                <IonButton id='open-action-sheet'>
+                  <IonActionSheet
+                    trigger="open-action-sheet"
+                    mode='ios'
+                    buttons={[
+                      {
+                        text: 'Logout',
+                        role: 'destructive',
+                        handler: () => {
+                          handleLogout();
+                        }
+                      },
+                      {
+                        text: 'Scan QR',
+                        handler: () => {
+                          scanQr();
+                        }
+                      },
+                      {
+                        text: 'Cancel',
+                        role: 'cancel',
+                        data: {
+                          action: 'cancel',
+                        },
+                      },
+                    ]}
+                  ></IonActionSheet>
+                  {/* <IonAvatar >
+                    <img id='user-avatar' src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+                  </IonAvatar> */}
+                  {/* <IonLabel id='user-firstname-label'>{firstName}</IonLabel> */}
+                </IonButton>
+                {/* </IonChip> */}
+              </IonTabButton>
+            </IonTabBar>
+          </IonTabs>
+        </Switch>
+      </IonReactRouter>
+
+      {/* <IonContent>
         <IonCard mode='ios'>
           <IonCardContent>
             <IonItem className="inputs">
@@ -156,8 +228,6 @@ const Home: any = () => {
           <IonCardContent>
             <IonButton mode='ios' className='btn' onClick={calcBmiAndUpdateDoc}>Calculate BMI</IonButton>
             <IonButton mode='ios' className='btn' onClick={reset}>Reset</IonButton>
-            {/* <IonButton mode='ios' className='btn' onClick={scanQr}>Scan</IonButton> */}
-            {/* <IonButton mode='ios' className='btn' onClick={handleLogout}>Logout</IonButton> */}
           </IonCardContent>
         </IonCard >
 
@@ -173,7 +243,7 @@ const Home: any = () => {
           </IonCardContent>
         </IonCard>}
 
-      </IonContent>
+      </IonContent> */}
     </IonPage >
   );
 

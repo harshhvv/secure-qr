@@ -54,12 +54,12 @@ const App: React.FC = () => {
         <IonReactRouter>
           <IonRouterOutlet>
             <Switch>
-              <Route exact path="/home" component={Home} />
+              <Route exact path="/homeTab" component={Home} />
               {/* <AuthenticatedRoute exact path="/home" component={Home} /> */}
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={Signup} />
-              <Route exact path="/home" component={Login} />
-              <Route exact path='/scanner' component={Scanner} />
+              <Route exact path="/homeTab/home" component={Login} />
+              <Route exact path='/homeTab/scanner' component={Scanner} />
               <Route exact path="*" render={() => <Redirect to="/login" />} />
             </Switch>
           </IonRouterOutlet>

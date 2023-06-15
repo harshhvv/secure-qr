@@ -1,6 +1,14 @@
+import { IonApp, IonCard, IonCardContent, IonContent, IonItem, IonLabel, IonPage } from "@ionic/react";
+
 const Tab3 = () => {
     return (
-        <h3>tab3</h3>
+        <IonApp>
+            <IonPage>
+                <IonContent>
+                    tab3
+                </IonContent>
+            </IonPage>
+        </IonApp>
     )
 }
 export default Tab3;

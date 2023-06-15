@@ -20,8 +20,8 @@ const Home: any = () => {
   const auth = getAuth();
   const loggedInUser = auth.currentUser;
   const [firstName, setFirstName] = useState<string>("");
-  const height = useRef<HTMLIonInputElement>(null) //keep track of height
-  const weight = useRef<HTMLIonInputElement>(null) //keep track of weight
+  const height = useRef<HTMLIonInputElement>(null) //keep track of height, user input
+  const weight = useRef<HTMLIonInputElement>(null) //keep track of weight, user input
   const [bmi, setbmi] = useState<number>() //keep track of bmi
   const [qrdata, setqr] = useState<string>() //keep track of qr data
   let bmis2: any[] = []   //will hold bmi data from firestore
@@ -86,7 +86,11 @@ const Home: any = () => {
   }
 
   const scanQr = () => {
-    // history.push("/tab1/scanner") //redirect to scanner page
+    history.push("/tab1/scanner") //redirect to scanner page
+  }
+
+  const showProfile = () => {
+    history.push("/tab3") //redirect to profile page
   }
 
   const reset = () => {
@@ -102,6 +106,7 @@ const Home: any = () => {
           <IonPopover trigger="bottom-start" side="bottom" alignment="center" mode='ios'>
             <IonContent class="ion-padding">
               <IonLabel mode='ios' className='popover-label' onClick={scanQr}>Scan QR</IonLabel>
+              <IonLabel mode='ios' className='popover-label' onClick={showProfile}>Profile</IonLabel>
               <IonLabel mode='ios' className='popover-label' id="logout-btn" onClick={handleLogout}>Logout</IonLabel>
             </IonContent>
           </IonPopover>

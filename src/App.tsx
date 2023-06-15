@@ -48,7 +48,6 @@ const AuthenticatedRoute: React.FC<AuthenticatedRouteProps> = ({ component: C, .
 
 
 const App: React.FC = () => {
-
   return (
     <AuthContextProvider>
       <IonApp>
@@ -67,7 +66,6 @@ const App: React.FC = () => {
         </IonReactRouter>
       </IonApp>
     </AuthContextProvider>
-
   )
 };
 

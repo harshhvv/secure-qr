@@ -75,50 +75,42 @@ const Scanner: React.FC = () => {
     };
 
     return (
-        // <IonApp>
-        <IonContent>
-            ok
-        </IonContent>
-        // </IonApp>
-        // <IonApp>
-        //     <IonPage>
-        //         <IonContent style={IonContentStyle}>
-        //             <IonCard mode='ios'>
-        //                 <IonCardContent>
-        //                     <IonGrid>
-        //                         {user_data && <IonRow>
-        //                             <IonCol class="ion-text-center"><b>Date</b></IonCol>
-        //                             <IonCol class="ion-text-center"><b>Height</b></IonCol>
-        //                             <IonCol class="ion-text-center"><b>Weight</b></IonCol>
-        //                             <IonCol class="ion-text-center"><b>BMI</b></IonCol>
-        //                         </IonRow>}
 
-        //                         {user_data &&
-        //                             user_data.map((data, idx) => {
-        //                                 return (
-        //                                     <IonRow >
-        //                                         {idx > 0 && <IonCol class="ion-text-center">{data['date']}</IonCol>}
-        //                                         {idx > 0 && <IonCol class="ion-text-center">{data['height']}</IonCol>}
-        //                                         {idx > 0 && <IonCol class="ion-text-center">{data['weight']}</IonCol>}
-        //                                         {idx > 0 && <IonCol class="ion-text-center">{data['bmi']}</IonCol>}
-        //                                     </IonRow>
-        //                                 )
-        //                             })
-        //                         }
-        //                     </IonGrid>
-        //                 </IonCardContent>
-        //             </IonCard>
-
-
-
-        //             <IonFab slot='fixed' vertical='bottom' horizontal='center'>
-        //                 <IonFabButton onClick={askUser}>
-        //                     <IonIcon icon={camera}></IonIcon>
-        //                 </IonFabButton>
-        //             </IonFab>
-        //         </IonContent>
-        //     </IonPage>
-        // </IonApp>
+        <IonApp>
+            <IonPage>
+                <IonContent style={IonContentStyle}>
+                    <IonCard mode='ios'>
+                        <IonCardContent>
+                            <IonGrid>
+                                {user_data && <IonRow>
+                                    <IonCol class="ion-text-center"><b>Date</b></IonCol>
+                                    <IonCol class="ion-text-center"><b>Height</b></IonCol>
+                                    <IonCol class="ion-text-center"><b>Weight</b></IonCol>
+                                    <IonCol class="ion-text-center"><b>BMI</b></IonCol>
+                                </IonRow>}
+                                {user_data &&
+                                    user_data.map((data, idx) => {
+                                        return (
+                                            <IonRow >
+                                                {idx > 0 && <IonCol class="ion-text-center">{data['date']}</IonCol>}
+                                                {idx > 0 && <IonCol class="ion-text-center">{data['height']}</IonCol>}
+                                                {idx > 0 && <IonCol class="ion-text-center">{data['weight']}</IonCol>}
+                                                {idx > 0 && <IonCol class="ion-text-center">{data['bmi']}</IonCol>}
+                                            </IonRow>
+                                        )
+                                    })
+                                }
+                            </IonGrid>
+                        </IonCardContent>
+                    </IonCard>
+                    <IonFab slot='fixed' vertical='bottom' horizontal='center'>
+                        <IonFabButton onClick={askUser}>
+                            <IonIcon icon={camera}></IonIcon>
+                        </IonFabButton>
+                    </IonFab>
+                </IonContent>
+            </IonPage>
+        </IonApp>
 
 
 

@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useHistory } from 'react-router';
-import { IonItem, IonLabel, IonInput, IonPage, IonContent, IonButton, IonHeader, IonTitle, IonToolbar, IonCard, IonCardContent } from "@ionic/react"
+import { IonItem, IonLabel, IonInput, IonPage, IonContent, IonButton, IonHeader, IonTitle, IonToolbar, IonCard, IonCardContent, IonGrid, IonRow, IonCol } from "@ionic/react"
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth, db } from '../firebase';
 import { setDoc, doc } from 'firebase/firestore';
@@ -31,7 +31,7 @@ const Signup: React.FC = () => {
         if (!enteredEmail || !enteredPassword) { return; }
         await createUserWithEmailAndPassword(auth, enteredEmail, enteredPassword)
             .then((userCredential) => {
-                history.push('/home');
+                history.push('/tab1');
                 const user = userCredential.user;
                 console.log(user);
                 const uid = user.uid;
@@ -95,8 +95,14 @@ const Signup: React.FC = () => {
                             <IonLabel position='floating'>Password</IonLabel>
                             <IonInput type="password" ref={password}></IonInput>
                         </IonItem>
-                        <IonButton mode='ios' className='btn' onClick={onSubmit}>Sign up</IonButton>
-                        <IonButton mode='ios' className='btn' onClick={history.goBack}>Have an account? Login</IonButton>
+
+                        <IonGrid>
+                            <IonRow>
+
+                                <IonCol> <IonButton mode='ios' className='btn' onClick={onSubmit}>Sign up</IonButton> </IonCol>
+                                <IonCol><IonButton mode='ios' className='btn' onClick={history.goBack}>Have an account? Login</IonButton></IonCol>
+                            </IonRow>
+                        </IonGrid>
                     </IonCardContent>
                 </IonCard>
 

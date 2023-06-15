@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonApp, IonFab, IonFabButton, IonIcon, IonCol, IonGrid, IonRow, IonBackButton, IonButtons, IonCard, IonCardContent, IonFooter } from '@ionic/react';
+import { IonContent, IonPage, IonApp, IonFab, IonFabButton, IonIcon, IonCol, IonGrid, IonRow, IonCard, IonCardContent } from '@ionic/react';
 import './Home.css';
 import { BarcodeScanner, SupportedFormat } from '@capacitor-community/barcode-scanner';
 import { camera } from 'ionicons/icons';
 import CryptoJS from 'crypto-js';
 import { getDoc, doc } from 'firebase/firestore';
 import { db } from '../../firebase';
-import { getAuth } from "firebase/auth";
 import '../../theme/variables.css';
 
 
@@ -65,12 +64,12 @@ const Scanner: React.FC = () => {
 
     const askUser = () => {
         BarcodeScanner.prepare();
-        const c = confirm('Do you want to scan a QR code?');
-        if (c) {
-            startScan();
-        } else {
-            stopScan();
-        }
+        // const c = confirm('Do you want to scan a QR code?');
+        // if (c) {
+        startScan();
+        // } else {
+        //     stopScan();
+        // }
     };
 
     return (

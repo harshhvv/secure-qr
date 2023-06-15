@@ -1,13 +1,12 @@
-import { IonActionSheet, IonAvatar, IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonChip, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonPage, IonPopover, IonRow, IonTitle, IonToolbar } from '@ionic/react';
+import { IonAvatar, IonButton, IonCard, IonCardContent, IonChip, IonCol, IonContent, IonGrid, IonInput, IonItem, IonLabel, IonPage, IonPopover, IonRow, IonToolbar } from '@ionic/react';
 import { useEffect, useRef, useState } from 'react';
 import { signOut, getAuth } from "firebase/auth";
 import { useHistory } from 'react-router';
 import { db } from '../../firebase';
-import { doc, updateDoc, getDoc, setDoc } from "firebase/firestore";
+import { doc, updateDoc, getDoc } from "firebase/firestore";
 import QRCode from 'react-qr-code';
 import CryptoJS from 'crypto-js';
 import './Home.css'
-import { closeCircle, person } from 'ionicons/icons';
 const secret: any = import.meta.env.VITE_ENC_DEC_KEY;
 
 
@@ -90,6 +89,7 @@ const Home: any = () => {
 
   const showProfile = () => {
     history.push("/tab3") //redirect to profile page
+
   }
 
   const reset = () => {

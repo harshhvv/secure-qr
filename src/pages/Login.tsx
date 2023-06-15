@@ -1,7 +1,7 @@
 import { IonItem, IonLabel, IonInput, IonPage, IonContent, IonButton, IonHeader, IonTitle, IonToolbar, IonCard, IonCardContent, IonCol, IonGrid, IonRow } from "@ionic/react"
 import { useHistory } from "react-router";
 import React, { useRef } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { browserLocalPersistence, getAuth, setPersistence, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
 
 const Login: React.FC = () => {
@@ -29,6 +29,8 @@ const Login: React.FC = () => {
     const email = useRef<HTMLIonInputElement>(null)
     const password = useRef<HTMLIonInputElement>(null)
 
+    const auth = getAuth();
+
     const onLogin = () => {
         // e.preventDefault();
         const enteredEmail = email.current!.value as string;
@@ -46,6 +48,7 @@ const Login: React.FC = () => {
                 console.log(errorCode, errorMessage)
                 alert(errorMessage)
             });
+
     }
 
     const handleButtonClick = () => {

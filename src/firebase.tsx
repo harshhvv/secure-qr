@@ -20,6 +20,8 @@ const app = initializeApp(firebaseConfig);
 // Initialize Performance Monitoring and get a reference to the service
 const perf = getPerformance(app);
 
+
+
 const analytics = getAnalytics(app);
 export const auth = getAuth(app);
 export default app;

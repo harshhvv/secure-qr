@@ -1,7 +1,6 @@
 import { Redirect, Route, RouteProps, Switch } from 'react-router-dom';
-import { IonApp, IonRouterContext, IonRouterOutlet, setupIonicReact } from '@ionic/react';
+import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { useIonRouter } from "@ionic/react";
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -22,13 +21,13 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
-import Home from './pages/tab1/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Scanner from './pages/tab1/Scanner';
 import { AuthContextProvider, useAuthState } from './firebase';
 import React from 'react';
 import Tab1 from './pages/tab1/Tab1';
+import { getAuth } from 'firebase/auth';
 
 
 
@@ -48,6 +47,7 @@ const AuthenticatedRoute: React.FC<AuthenticatedRouteProps> = ({ component: C, .
 
 
 const App: React.FC = () => {
+
   return (
     <AuthContextProvider>
       <IonApp>
@@ -70,3 +70,5 @@ const App: React.FC = () => {
 };
 
 export default App;
+//how di add private routes to a react app that is using firebase as a backend
+//how do i persist login state in a react app that is using firebase as a backend

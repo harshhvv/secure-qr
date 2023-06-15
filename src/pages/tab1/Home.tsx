@@ -8,8 +8,7 @@ import QRCode from 'react-qr-code';
 import CryptoJS from 'crypto-js';
 import './Home.css'
 import { closeCircle, person } from 'ionicons/icons';
-// const secret: any = import.meta.env.VITE_ENC_DEC_KEY;
-const secret: any = "abcdefghijklmnopqrstuvwxyz1234567890"
+const secret: any = import.meta.env.VITE_ENC_DEC_KEY;
 
 
 

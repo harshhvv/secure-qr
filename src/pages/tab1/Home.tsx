@@ -18,6 +18,7 @@ const Home: any = () => {
   const auth = getAuth();
   const loggedInUser = auth.currentUser;
   const [firstName, setFirstName] = useState<string>("");
+  const [dpURL, setDpURL] = useState<string>("");
   const height = useRef<HTMLIonInputElement>(null) //keep track of height, user input
   const weight = useRef<HTMLIonInputElement>(null) //keep track of weight, user input
   const [bmi, setbmi] = useState<number>() //keep track of bmi
@@ -25,14 +26,7 @@ const Home: any = () => {
   let bmis2: any[] = []   //will hold bmi data from firestore
   let newJson: any[] = [] //will hold new bmi data to be pushed to firestore
 
-  const showDisplayName = () => {
-    useEffect(() => {
-      setFirstName(loggedInUser?.displayName?.split(" ")[0] as string);
-      const qrdata = CryptoJS.AES.encrypt(loggedInUser!.uid, secret).toString(); //encrypt uid
-      // console.log("encrypted uid is: " + qrdata)
-      setqr(qrdata)
-    }, []);
-  }
+
 
   const handleLogout = () => {
     signOut(auth).then(() => {
@@ -43,6 +37,11 @@ const Home: any = () => {
       alert("There was a problem logging out, please try again.")
     });
   }
+  const showDisplayName = () => {
+    useEffect(() => {
+      setFirstName(loggedInUser?.displayName?.split(" ")[0] as string);
+    }, []);
+  }
 
   const showQR = () => {
     useEffect(() => {
@@ -50,8 +49,16 @@ const Home: any = () => {
       setqr(qrdata)
     }, []);
   }
+
+  const showDp = () => {
+    useEffect(() => {
+      setDpURL(loggedInUser?.photoURL as string);
+    }, []);
+  }
+
   showDisplayName();
   showQR();
+  showDp();
 
   const calcBmiAndUpdateDoc = async () => {
     const user = auth.currentUser
@@ -104,13 +111,13 @@ const Home: any = () => {
         {loggedInUser && <IonChip slot='end' id='bottom-start'>
           <IonPopover trigger="bottom-start" side="bottom" alignment="center" mode='ios'>
             <IonContent class="ion-padding">
-              <IonLabel mode='ios' className='popover-label' onClick={scanQr}>Scan QR</IonLabel>
-              <IonLabel mode='ios' className='popover-label' onClick={showProfile}>Profile</IonLabel>
+              {/* <IonLabel mode='ios' className='popover-label' onClick={scanQr}>Scan QR</IonLabel> */}
+              {/* <IonLabel mode='ios' className='popover-label' onClick={showProfile}>Profile</IonLabel> */}
               <IonLabel mode='ios' className='popover-label' id="logout-btn" onClick={handleLogout}>Logout</IonLabel>
             </IonContent>
           </IonPopover>
           <IonAvatar >
-            <img id='user-avatar' src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+            <img id='user-avatar' src={dpURL} />
           </IonAvatar>
           <IonLabel id='user-firstname-label'>{firstName}</IonLabel>
         </IonChip>}

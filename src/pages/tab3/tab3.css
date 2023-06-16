@@ -1,0 +1,25 @@
+ion-avatar ion-img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+}
+
+#profile-pic {
+    position: absolute;
+    /* top: 40%; */
+    /* left: 45%; */
+}
+
+#trial {
+    position: relative;
+    top: 8%;
+    z-index: -1;
+}
+
+#first-name-item {
+    margin-top: 19px;
+}
+
+#container {
+    margin-top: 20px;
+}

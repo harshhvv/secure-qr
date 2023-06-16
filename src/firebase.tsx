@@ -4,6 +4,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { createContext, useContext, useEffect, useState } from "react";
 import { getPerformance } from "firebase/performance";
+import { getStorage } from "firebase/storage";
 
 
 const firebaseConfig = {
@@ -24,10 +25,11 @@ const perf = getPerformance(app);
 
 const analytics = getAnalytics(app);
 export const auth = getAuth(app);
+
+export const storage = getStorage(app);
 export default app;
 export const db = getFirestore(app);
 export const AuthContext: any = createContext(null);
-
 export const AuthContextProvider = (props: any) => {
     const [user, setUser]: any = useState();
     const [error, setError]: any = useState();
@@ -44,6 +46,7 @@ export const useAuthState = () => {
     const auth: any = useContext(AuthContext);
     return { ...auth, isAuthenticated: auth.user != null }
 }
+
 
 
 //////////////////////////////////////////////

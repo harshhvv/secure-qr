@@ -28,6 +28,8 @@ import { AuthContextProvider, useAuthState } from './firebase';
 import React from 'react';
 import Tab1 from './pages/tab1/Tab1';
 import { getAuth } from 'firebase/auth';
+import Tab2 from './pages/tab2/Tab2';
+import Tab3 from './pages/tab3/Tab3';
 
 
 
@@ -60,6 +62,8 @@ const App: React.FC = () => {
               <Route exact path="/signup" component={Signup} />
               <Route exact path="/home" component={Login} />
               <Route exact path='/tab1/scanner' component={Scanner} />
+              {/* <Route exact path='/tab2' component={Tab2} /> */}
+              {/* <Route exact path='/tab3' component={Tab3} /> */}
               <Route exact path="*" render={() => <Redirect to="/login" />} />
             </Switch>
           </IonRouterOutlet>

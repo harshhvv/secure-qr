@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'ionic.ionic5',
-  appName: 'ionic5',
+  appId: 'com.harshuwu.bmi',
+  appName: 'BroMI',
   webDir: 'dist',
   server: {
     androidScheme: 'https'

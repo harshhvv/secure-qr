@@ -15,7 +15,7 @@ const Signup: React.FC = () => {
     const phoneNumber = useRef<HTMLIonInputElement>(null)
     const email = useRef<HTMLIonInputElement>(null)
     const password = useRef<HTMLIonInputElement>(null)
-    const [file, setFile] = useState();
+    const [file, setFile] = useState<any>();
     const [dpURL, setDpURL] = useState("");
 
     const IonCardStyle = {
@@ -28,29 +28,6 @@ const Signup: React.FC = () => {
         setFile(event.target.files[0]);
     }
 
-    // const handleDpUpload = () => {
-    //     if (!file) {
-    //         alert("Please choose a file first!")
-    //     }
-    //     const storageRef = ref(storage, `/profilePhotos/${uid}/${file}`)
-    //     const uploadTask = uploadBytesResumable(storageRef, file);
-    //     uploadTask.on(
-    //         "state_changed",
-    //         (snapshot) => {
-    //             const percent = Math.round(
-    //                 (snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-    //             setPercent(percent);
-    //         },
-    //         (err) => console.log(err),
-    //         () => {
-    //             // download url
-    //             getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-    //                 console.log(url);
-    //             });
-    //         }
-    //     );
-
-    // }
 
     const onSubmit = async (e: any) => {
         e.preventDefault()
@@ -61,7 +38,11 @@ const Signup: React.FC = () => {
         const storage = getStorage();
         if (!file) {
             // alert("Please choose a file first!")
-            // file = URL("src/1189973.jpg")
+            const response = await fetch("./src/1189973.jpg");
+            const blob = await response.blob();
+            let temp: File = new File([blob], 'filename.ext', { type: blob.type });
+            setFile(temp);
+
         }
 
         if (!enteredEmail || !enteredPassword) { return; }
@@ -71,7 +52,7 @@ const Signup: React.FC = () => {
                 const user = userCredential.user;
                 const uid = user.uid;
                 const storageRef = ref(storage, `/profilePhotos/${uid}`)
-                const uploadTask = uploadBytesResumable(storageRef, file);
+                const uploadTask = uploadBytesResumable(storageRef, file!);
                 uploadTask.on('state_changed',
                     (snapshot) => {
                         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -133,10 +114,7 @@ const Signup: React.FC = () => {
                             <IonLabel position='floating'>Last Name</IonLabel>
                             <IonInput ref={lastName}></IonInput>
                         </IonItem>
-                        <IonItem className="inputs">
-                            <IonLabel position='floating'>Phone Number</IonLabel>
-                            <IonInput ref={phoneNumber} type='number'></IonInput>
-                        </IonItem>
+
                         <IonItem className="inputs">
                             <IonLabel position='floating'>Email</IonLabel>
                             <IonInput ref={email}></IonInput>
@@ -148,7 +126,7 @@ const Signup: React.FC = () => {
                         </IonItem>
 
                         {/* <IonItem > */}
-                        <input type="file" accept="image/*" onChange={(e) => { handleDpChange(e) }} id='dp-upload' alt='../1189973.jpg' />
+                        <input type="file" onChange={(e) => { handleDpChange(e) }} id='dp-upload' />
                         {/* <button onClick={handleDpUpload}>Upload to Firebase</button> */}
                         {/* </IonItem> */}
 
@@ -169,3 +147,8 @@ const Signup: React.FC = () => {
 
 
 export default Signup
+
+
+// const storageRef = ref(storage, `/profilePhotos/${uid}`)
+// const uploadTask = uploadBytesResumable(storageRef, file);
+// error in the 2nd line: Argument of type 'undefined' is not assignable to parameter of type 'Blob | Uint8Array | ArrayBuffer'.
